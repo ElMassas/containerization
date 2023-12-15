@@ -1,8 +1,8 @@
-- Intro
+- Getting started
   
+    - [Intro](intro.md)
     - [What's a container](definition.md)
-    - [Difference between container engine and a VM](vmdifference.md)
-    - [How are container created](containeronos.md)
+    - [How do containers work?](containeronos.md)
 
 - Basics with Docker
 
@@ -18,6 +18,7 @@
     - [Container tools](tools.md)
     - [Security](sec.md)
     - [Network](network.md)
+    - [OCI](oci.md)
     - [Best practices](bestpractices.md)
 
 

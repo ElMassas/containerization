@@ -5,4 +5,4 @@
 > A workshop for all things container
 
 [GitHub](https://github.com/ElMassas/containerization)
-[Getting Started](#docsify)
+[Getting Started](intro)
