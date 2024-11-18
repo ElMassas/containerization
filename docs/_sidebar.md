@@ -10,6 +10,7 @@
     - [Creating](create.md)
     - [Publishing and registries](publishing.md)
     - [Orchestration basics](compose.md)
+    - [Exercises](exercises.md)
 
 - Advanced
 
@@ -27,3 +28,8 @@
     - [Docker swarm](swarm.md)
     - [Kubernetes](kubernetes.md)
     - [Nomad](nomad.md)
+
+- Containerzz Aldrin
+    - [What even are containers?](containersquiz.md)
+    - [Basics](baicsquiz.md)
+    - [Advanced](advancedquiz.md)

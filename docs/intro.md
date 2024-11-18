@@ -3,6 +3,7 @@
 ## Goal
 
 With this workshop you'll learn how to create and run, efficient and secure containers with the understanding of the pieces that make up the container space.
+There will be a mix of knowledge sharing and exercises through every section of this workshop.
 
 ## Overview
 

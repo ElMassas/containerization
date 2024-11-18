@@ -39,6 +39,11 @@ It should also be noted that while the processes are separate and "isolated" the
 
 **Note:** If you want to check for yourself what a container engine is using try and execute: `<container engine> info`
 
+### Quiz time
+
+You are now ready to do a quick quiz about containers.
+[Click me](containersquiz.md)
+
 ## Resources
 
 [Docker underlying technology](https://www.codementor.io/blog/docker-technology-5x1kilcbow)
