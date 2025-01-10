@@ -4,7 +4,7 @@ Let's get out hands dirty and find an image we might want to run.
 
 First things first, we need to search for the image, for which we have a few options. We can either go to an official container image registry or we can search for it via the CLI:
 
-> Note: If you are not yet authenticated, it might be requested, and if so just run `docker login` and follow the steps
+> **Note:** If you are not yet authenticated, it might be requested, and if so just run `docker login` on the terminal and follow the steps, or authenticate via the docker desktop app
 
 ```sh
 $ docker search debian
@@ -26,32 +26,31 @@ pihole/debian-base: 5
 
 ```
 
-In this example we are searching for debian images that have at least 5 stars so that we can be more certain we are getting the proper image. However, searching via the Docker CLI is not the best, since we can't see the tags or change the registry we query in the command. In this case, podman has a better search command:
+It's still not really clear which image Docker will download to out computer if we do: `docker pull debian`. For that reason it's always easier to go straight to [docker hub](https://hub.docker.com/_/debian) and search there, since you have the reassurance of being able check more information.
 
-```sh
-$ podman search --limit 5 --list-tags --compatible quay.io/prometheus/prometheus
-NAME                           TAG
-quay.io/prometheus/prometheus  v2.5.0
-quay.io/prometheus/prometheus  v2.6.0-rc.0
-quay.io/prometheus/prometheus  v2.6.0-rc.1
-quay.io/prometheus/prometheus  v2.6.0
-quay.io/prometheus/prometheus  v2.6.1
 
-```
+> **NOTE:** DockerHub is not the only place to find container images at, there are other container image hubs like [quay.io](https://quay.io/search?q=debian). These alternatives may not be the best suited for you, and you should't have to worry to much about it since DockerHub is the default for a lot of container images, however, if you can't find an image for a service you want, remember to check other hubs.
 
-Now that we've seen that the dockerhub registry has a debian image, let's pull the most recent version:
-`docker pull debian:latest`.
+
+From dockerhub we can see: 
+![debian_dockerhub](_media/debian_dockerhub.png)
+
+So let's go ahead and download this image: `docker pull debian` 
 
 After the download is finished, we can validate we have the expected image by doing:
 `docker images | grep debian`.
 
 ```sh
 $ docker images | grep debian
-debian                                              trixie-slim      bfeffe4da138   3 weeks ago    98.1MB
-debian                                              latest           a588e7890234   3 weeks ago    139MB
+debian                                              latest      5d5555ed59bd  2 weeks ago   144 MB
 ```
 
-Here we see that we have multiple images present. Try and pull the other one.
+But what if I want to download a specific version of a container image?
+For example the debian bookworm version:
+`docker pull debian:bookworm`
+
+As simple as that!
+
 
 ## Running
 
@@ -116,6 +115,19 @@ $ docker run --platform linux/arm64 -d --name postgres-test -e POSTGRES_PASSWORD
 
 # Now perform the same steps we did before to add some data to the DB. Exec into the container and run the SQL commands. 
 # You'll see that if you leave the stop the and remove the container, and re-run with the volume, the data will still be present
+```
+
+
+In this example we are searching for debian images that have at least 5 stars so that we can be more certain we are getting the proper image. However, searching via the Docker CLI is not the best, since we can't see the tags or change the registry we query in the command. In this case, podman has a better search command:
+
+```sh
+$  podman search --limit 5 --list-tags --compatible docker.io/debian     
+NAME                      TAG
+docker.io/library/debian  10
+docker.io/library/debian  10-slim
+docker.io/library/debian  10.0
+docker.io/library/debian  10.0-slim
+docker.io/library/debian  10.1
 ```
 
 ### Exercises

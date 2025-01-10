@@ -4,7 +4,11 @@
 Docker != containers
 </div>
 
-Containers are Linux processes with some special configurations sprinkled in. But wait! How are they isolated from the rest of the OS?
+Containers are a mix of Linux features with some special configurations sprinkled in. Other Operating Systems have similar concepts to the one's we'll discuss in this page, however, due to obiquity of Linux and it being used as the base for container engines even in Windows - Docker for example runs a Linux VM in which containers are ran.
+
+What are these Linux features?
+ - **Namespaces**
+ - **CGroups**
 The answer is **Namespaces**, which isolate a process's view of the underlying system. When a process is run inside a new namespace, it get it's own isolated instance of global resources
 
 ## Namespaces
@@ -29,17 +33,21 @@ And it should return something like this:
 > - <u>Time namespace:</u> Isolates system clocks. Each namespace has a different system time.
 > - <u>Time/PID for Children namespace:</u> Special namespaces for child processes to make sure they are correctly tracked and configured 
 
-## The truth
+## CGroups
 
-I lied! Namespaces are not the only linux feature required to create and operate the special processes we call containers. There are other important features such as chroot(change root) and cgroup(control group).
+Directly from the [man-page](https://man7.org/linux/man-pages/man7/cgroups.7.html):
 
-Both of these functionalities are important but I'll just mention that since each container requires a filesystem, we use *chroot* to create it and *cgroup* to group processes
+> A Linux kernel feature which allow processes to be organized into hierarchical groups whose usage of various types of resources then be limited and monitored.
 
-It should also be noted that while the processes are separate and "isolated" they are not true isolated environments since they still run on the underlying system's kernel.
+As mentioned in the quote above, processes are organized into hierarchical groups, a single hierarchy(tree). When the kernel boots up it starts a process named *init*, from which all other processes are created, and in turn, these processes can create their own child-processes and they inherit the environment from it's parent process.
+
+Many different hierarchies of cgroups can exist simultaneously on a system. If the Linux process model is a single tree of processes, then the cgroup model is one or more separate, unconnected trees of tasks (i.e. processes).
+Multiple separate hierarchies of cgroups are necessary because each hierarchy is attached to one or more subsystems. A subsystem represents a single resource, such as CPU time or memory.
 
 **Note:** If you want to check for yourself what a container engine is using try and execute: `<container engine> info`
 
-### Quiz time
+
+## Quiz time
 
 You are now ready to do a quick quiz about containers.
 [Click me](containersquiz.md)
@@ -51,3 +59,5 @@ You are now ready to do a quick quiz about containers.
 [Namespaces article](https://lwn.net/Articles/531114/)
 
 [A great presentation about building a simple container from scratch](https://www.youtube.com/watch?v=8fi7uSYlOdc)
+
+[In depth look into CGroups](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/6/html/resource_management_guide/ch01#sec-How_Control_Groups_Are_Organized)

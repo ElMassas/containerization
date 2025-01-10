@@ -1,10 +1,10 @@
 # Creating
 
-We've seen how to retrieve and run a container image someone else has created but how does one go about creating an image?
+We've seen how to retrieve and run a container image someone else has created but how does one go about creating their own image?
 
 ## Dockerfile
 
-We have to create a text file, a dockerfile, with the list of commands that the Docker daemon will execute to assemble the image. Let's go over a really simple dockerfile to run a simple python program.
+We have to create a dockerfile, with the list of commands that the Docker daemon will execute to assemble the image. Let's go over a really simple dockerfile to run a simple python program.
 
 ```Dockerfile
 # Use an official Python runtime as a parent image
@@ -28,7 +28,7 @@ CMD ["cowsay","-t", "Mooo"]
 
 ```
 
-To build this image and run it, first create a file named `Dockerfile` in your current directory and execute this command in your terminal:
+To build this image and run it, first create a file named `Dockerfile` in your current project directory and execute this command in your terminal:
 
 `$ docker build -t my_python_cowsay . && docker run my_python_cowsay`
 
@@ -52,7 +52,7 @@ RUN some_commands_to_build_or_compile_code
 CMD ["default_command_to_start_application"]
 ```
 
-In the previous **my_python_cowsay** dockerfile we didn't `COPY` any application code to the container since we didn't have any, we just pulled some programs from the internet and ran then inside the container. This is usual task for building services before deploying them. We as developers wouldn't normally just fetch a service and run it without any customization to our needs.
+In the previous **my_python_cowsay** dockerfile we didn't `COPY` any application code to the container since we didn't have any, we just pulled some programs from the internet and, added some very ligh configuration with environment variables, and ran the programs inside the container. This is a usual task for building services before deploying them. We as developers wouldn't normally just fetch a service required for our application to work and run it without customizing it our needs.
 
 ## Considerations
 
@@ -121,8 +121,8 @@ $ docker buildx build --platform linux/arm64 --rm -t my_python_cowsay .
 
 ## Hands-on
 
-If you want to get more hands-on experience with creating and running containers, take a look at this repository I've created for demonstration purposes. [Link](https://github.com/ElMassas/simple_todo)
+If you want to get more hands-on experience with creating and running containers, take a look at this repository I've created for demonstration purposes. [Link](https://github.com/ElMassas/simple_todo/tree/main/single_component)
 
 ## Resources
 
-[Dockerfile documentation](https://docs.docker.com/engine/reference/builder/)
+[Dockerfile documentation](https://docs.docker.com/reference/dockerfile/)
