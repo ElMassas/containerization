@@ -10,11 +10,10 @@
     - [Creating](create.md)
     - [Publishing and registries](publishing.md)
     - [Orchestration basics](compose.md)
-    - [Exercises](exercises.md)
 
 - Advanced
 
-    - [Multi-stage images](multistage.md)
+    - [Multi-stage builds](multistage.md)
     - [Container engines](engines.md)
     - [Container tools](tools.md)
     - [Security](sec.md)
@@ -29,7 +28,7 @@
     - [Kubernetes](kubernetes.md)
     - [Nomad](nomad.md)
 
-- Containerzz Aldrin
+- Containerization Pursuit 
     - [What even are containers?](containersquiz.md)
-    - [Basics](baicsquiz.md)
+    - [Basics](basicquiz.md)
     - [Advanced](advancedquiz.md)

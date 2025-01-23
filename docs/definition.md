@@ -1,5 +1,7 @@
 # Definition
 
+Container shipping analogy
+
 A container is an executable unit of software, in which a single or multiple applications are packaged into with the required runtime environment, isoleted from the rest of the system it is running on. 
 
 The creation of containers aimed at providing an easier and faster to set up service, that could run "anywhere in the same way", wether that be **production**, **staging**, **your personal machine** and specially other people's **personal machine**.
@@ -7,6 +9,12 @@ The creation of containers aimed at providing an easier and faster to set up ser
 **But in reality... what does this mean?**
 
 It means computer goes: "brrr..." and spawns a magical new virtual computer inside the system you are running this container on. By this I mean that, much like when using a VM on your machine, a container takes advantage of the hardware resources on your machine, and it produces a piece of software which is isolated from the rest of your machine with all the bells and whistles you decided to include in the container.
+
+![container_ship](_media/container_ship.jpeg)
+
+Think of a container ship. All the individual containers can be dropped off at any port in the world and have whatever product inside of them. That doesn't change the fact that all the containers follow the same specifications, making them highly reproducible and reliable. This is analogous to the digital understanding of containers, they also follow certain specifications, can be deployed almost anywhere and have whatever we decid to package in them.
+
+
 
 You'll learn more about how containers work under the hood in the next page.
 

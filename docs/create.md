@@ -4,7 +4,7 @@ We've seen how to retrieve and run a container image someone else has created bu
 
 ## Dockerfile
 
-We have to create a dockerfile, with the list of commands that the Docker daemon will execute to assemble the image. Let's go over a really simple dockerfile to run a simple python program.
+As previously stated we require a Dockerfile to list the [instructions](https://docs.docker.com/reference/dockerfile/#overview) that the container engine will execute to assemble the image. Let's go over a really simple dockerfile to run a simple python program.
 
 ```Dockerfile
 # Use an official Python runtime as a parent image
@@ -32,33 +32,34 @@ To build this image and run it, first create a file named `Dockerfile` in your c
 
 `$ docker build -t my_python_cowsay . && docker run my_python_cowsay`
 
-A dockerfile has a few requirements which are fulfilled in the above dockerfile, along with some extras which are usually included.
+A dockerfile only really has one requirement which is the `FROM` instruction, that's because, without the underlying Operating System that comes with the **base image** you would not have anything. For example you would not be able to sucessfully perform this operation: `WORKDIR /app` because this operation is relying upon the understading that there is a file system with the root of `/`.
 
-A base image is always required, and in this case we are pulling the python:3.11 version with the `FROM` command to initialize this build stage. It's also required to follow the simple syntax of `INSTRUCTION arguments`
+Dockerfile instructions to follow this simple syntax: `INSTRUCTION arguments`.
 
-One of the main points of using containers is to standardize development and environments, which means we use containers to package and application. This is where the `CMD`, `WORKDIR`, `RUN` and `CMD/ENTRYPOINT` instructions enter.
+One of the main points of using containers is to standardize development and environments, which means we use containers to package and application. This is where the `COPY`, `WORKDIR`, `RUN` and `CMD/ENTRYPOINT` instructions enter.
 
 The flow for containerizing an application is similar to this:
 
 ```Dockerfile
 FROM base_image:tag
 
-COPY application_code target_directory_in_container
-
 WORKDIR default_dir_for_instructions_to_start
+
+COPY application_code target_directory_in_container
 
 RUN some_commands_to_build_or_compile_code
 
 CMD ["default_command_to_start_application"]
 ```
 
-In the previous **my_python_cowsay** dockerfile we didn't `COPY` any application code to the container since we didn't have any, we just pulled some programs from the internet and, added some very ligh configuration with environment variables, and ran the programs inside the container. This is a usual task for building services before deploying them. We as developers wouldn't normally just fetch a service required for our application to work and run it without customizing it our needs.
+In the previous **my_python_cowsay** dockerfile we didn't `COPY` any application code to the container since we didn't have any, we just pulled some programs from the internet and, added some very ligh configuration with environment variables, and ran the programs inside the container. This is a usual task for building services before deploying them. As developers we wouldn't/shouldn't normally just fetch a service required for our application to work and run it without customizing it our needs.
 
 ## Considerations
 
-One thing to note is the size of the image generate by the build command on our Dockerfile.
+One thing to note is the size of the image generate by the build command on our Dockerfile. 
 
 ```sh
+$ docker images
 REPOSITORY                                          TAG              IMAGE ID       CREATED         SIZE
 my_python_cowsay                                    latest           d5a86f9eb0a8   8 seconds ago   1.05GB
 ```
@@ -84,20 +85,23 @@ You might think *1.05Gb* isn't much but you'd be wrong. There are a lot of movin
   - (6) This is the most obvious, we build the container to publish it in our registry of choice
   - (7) The time it takes to pull the container image and executing is also affected by it's size, although it's less worrisome in this scenario.
 
-Another very important reason to optimize and shrink your container image is for security purposes. If you have less stuff in your container, you have a reduced attack surface.
-In my case, on my local machine., building from scratch took around 30 seconds. Let's optimize.
+Another very important reason to optimize and shrink your container image is for security purposes. If you have less stuff in your container, there's less stuff to advantage of, so you have a reduced attack surface.
+In my case, on my local machine, building from scratch took around 30 seconds. Let's optimize.
 
 ## Improvements
 
-There are many aspects to take into consideration, but some easy ones are: Package managers, base images and cache.
+There are many aspects to take into consideration, but some quick points to tackle are: Package managers, base images and cache.
 
-We will check how to drastically improve our container images in the following sections, culminating in the best practices section.
+We will check how to drastically improve our container images in the following sections, culminating in the best practices section. For now:
 
 ```Dockerfile
 # Use an official lighter Python runtime as a parent image
 FROM python:3.11-alpine
 
-# Install cowsay using pipx
+# Install cowsay using pip and without caching
+# Normally caching helps with performance, but in this case
+# We are only performing this operation once, so there is no
+# need to store cache related to this package
 RUN pip install --no-cache-dir cowsay
 
 # Run cowsay when the container launches
@@ -108,7 +112,7 @@ Now check the size of this new container image.
 
 ## Multiple architectures
 
-Sometimes you'll have the pleasure of deciding where you want to deploy a service, and you might decide that the CPU architecture you want to deploy is ARM due to their power efficiency. So you write you're program with this in mind, but you also have to remember to build your container image to run in this architecture.
+Sometimes you'll have the pleasure of deciding where you want to deploy a service, and you might decide that the CPU architecture you want to deploy is ARM based due to their power efficiency and/or compatability with some service. So you write you're program with this in mind, but you also have to remember to build your container image to run in this architecture.
 
 Nowadays most container engines allow you to build to multiple architectures. Docker has [buildx](https://github.com/docker/buildx) and podman has [buildah](https://github.com/containers/buildah)
 
@@ -126,3 +130,4 @@ If you want to get more hands-on experience with creating and running containers
 ## Resources
 
 [Dockerfile documentation](https://docs.docker.com/reference/dockerfile/)
+[Even without running a container without an image, you still need an Operatin System](https://iximiuz.com/en/posts/you-dont-need-an-image-to-run-a-container/)

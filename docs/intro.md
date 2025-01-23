@@ -35,9 +35,4 @@ For most of the workshop we will be using [docker](https://docs.docker.com/get-d
 
 For support reach out to me open an [issue](https://github.com/ElMassas/containerization/issues).
 
-**Contacts:**
-
-
-  <a href="https://www.instagram.com/el.massas/" title="Instagram - u/el.massas"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" /></a>
-  <a href="https://www.linkedin.com/in/miguel-filipe-lu%C3%ADs/" title="LinkedIn - Miguel Luís"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
-  <a href="https://twitter.com/el_massas" title="Twitter - @el_massas"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" /></a>
+<a href="https://www.elmassas.com/" title="Instagram - u/el.massas"><img src="https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white" /></a>
